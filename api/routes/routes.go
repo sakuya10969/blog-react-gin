@@ -6,6 +6,6 @@ import (
 )
 
 func SetupRoutes(router *gin.Engine) {
+    router.GET("/posts", controllers.GetAllPosts)
     router.POST("/posts", controllers.CreatePost)
-    router.GET("/posts", controllers.GetPosts)
 }
