@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import React from 'react';
 import { Typography, Container } from '@mui/material';
 import PostCard from '../components/common/PostCard';

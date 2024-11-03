@@ -1,10 +1,8 @@
-// src/pages/PostDetail.jsx
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Typography, Button, Container } from '@mui/material';
 import Header from '../components/common/Header';
 
-// 仮の投稿データ
 const postDetails = {
     1: { title: '最初のポスト', content: '最初のポストです' },
     2: { title: '2つ目のポスト', content: '2つ目のポストです.' },
