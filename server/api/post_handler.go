@@ -48,3 +48,40 @@ func GetPostById(c *gin.Context) {
     }
     c.JSON(http.StatusOK, post)
 }
+
+func UpdatePost(c *gin.Context) {
+    idParam := c.Param("id")
+    id, err := strconv.Atoi(idParam)
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error":"IDの形式が正しくありません"})
+        return
+    }
+
+    var updatedData model.Post
+    if err := c.ShouldBindJSON(&updatedData); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+        return
+    }
+
+    updatedPost, err := service.UpdatePost(uint(id), updatedData)
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error":err.Error()})
+        return
+    }
+    c.JSON(http.StatusOK, updatedPost)
+}
+
+func DeletePost(c *gin.Context) {
+    idParam := c.Param("id")
+    id, err := strconv.Atoi(idParam)
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error":"IDの形式が正しくありません"})
+        return
+    }
+
+    if err := service.DeletePost(uint(id)); err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error":err.Error()})
+        return
+    }
+    c.JSON(http.StatusOK, gin.H{"message":"ポストが削除されました"})
+}

@@ -16,3 +16,11 @@ func CreatePost(post model.Post) (model.Post, error) {
 func GetPostById(id uint) (model.Post, error) {
 	return repository.GetPostById(id)
 }
+
+func UpdatePost(id uint, updatedData model.Post) (model.Post, error) {
+	return repository.UpdatePost(id, updatedData)
+}
+
+func DeletePost(id uint) error {
+	return repository.DeletePost(id)
+}
