@@ -1,0 +1,26 @@
+# docker-compose.yml
+version: '3'
+services:
+  api:
+    build: ./api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: blog_db
+    ports:
+      - "5432:5432"
