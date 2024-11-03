@@ -4,84 +4,100 @@ import (
     "github.com/gin-gonic/gin"
     "blog-full/model"
     "blog-full/service"
+    "gorm.io/gorm"
     "net/http"
     "strconv"
 )
 
-func GetAllPosts(c *gin.Context) {
-    posts, err := service.GetAllPosts()
+type Handler struct {
+    service *service.Service
+}
+
+func NewHandler(service *service.Service) *Handler {
+    return &Handler{service: service}
+}
+
+func (h *Handler) getIDParam(c *gin.Context) (uint, bool) {
+    idParam := c.Param("id")
+    id, err := strconv.Atoi(idParam)
     if err != nil {
-        c.JSON(http.StatusInternalServerError, gin.H{"error":
-    "ポストの取得に失敗しました"})
-    return
+        c.JSON(http.StatusBadRequest, gin.H{"error": "IDの形式が正しくありません"})
+        return 0, false
+    }
+    return uint(id), true
+}
+
+func (h *Handler) GetAllPosts(c *gin.Context) {
+    posts, err := h.service.GetAllPosts()
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "ポストの取得に失敗しました"})
+        return
     }
     c.JSON(http.StatusOK, posts)
 }
 
-func CreatePost(c *gin.Context) {
+func (h *Handler) CreatePost(c *gin.Context) {
     var post model.Post
     if err := c.ShouldBindJSON(&post); err != nil {
-        c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+        c.JSON(http.StatusBadRequest, gin.H{"error": "リクエストデータの形式が正しくありません: " + err.Error()})
         return
     }
 
-    createdPost, err := service.CreatePost(post) 
+    createdPost, err := h.service.CreatePost(post)
     if err != nil {
-        c.JSON(http.StatusInternalServerError, gin.H{"error":"ポストの作成に失敗しました"})
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "ポストの作成に失敗しました"})
         return
     }
     c.JSON(http.StatusCreated, createdPost)
 }
 
-func GetPostById(c *gin.Context) {
-    idParam := c.Param("id")
-    id, err := strconv.Atoi(idParam)
-    if err != nil {
-        c.JSON(http.StatusBadRequest, gin.H{"error":"IDの形式が正しくありません"})
+func (h *Handler) GetPostById(c *gin.Context) {
+    id, valid := h.getIDParam(c)
+    if !valid {
         return
     }
 
-    post, err := service.GetPostById(uint(id))
+    post, err := h.service.GetPostById(id)
     if err != nil {
-        c.JSON(http.StatusNotFound, gin.H{"error":"ポストが見つかりません"})
+        if err == gorm.ErrRecordNotFound {
+            c.JSON(http.StatusNotFound, gin.H{"error": "ポストが見つかりません"})
+        } else {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": "ポストの取得に失敗しました"})
+        }
         return
     }
     c.JSON(http.StatusOK, post)
 }
 
-func UpdatePost(c *gin.Context) {
-    idParam := c.Param("id")
-    id, err := strconv.Atoi(idParam)
-    if err != nil {
-        c.JSON(http.StatusBadRequest, gin.H{"error":"IDの形式が正しくありません"})
+func (h *Handler) UpdatePost(c *gin.Context) {
+    id, valid := h.getIDParam(c)
+    if !valid {
         return
     }
 
     var updatedData model.Post
     if err := c.ShouldBindJSON(&updatedData); err != nil {
-        c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+        c.JSON(http.StatusBadRequest, gin.H{"error": "リクエストデータの形式が正しくありません: " + err.Error()})
         return
     }
 
-    updatedPost, err := service.UpdatePost(uint(id), updatedData)
+    updatedPost, err := h.service.UpdatePost(id, updatedData)
     if err != nil {
-        c.JSON(http.StatusInternalServerError, gin.H{"error":err.Error()})
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "ポストの更新に失敗しました: " + err.Error()})
         return
     }
     c.JSON(http.StatusOK, updatedPost)
 }
 
-func DeletePost(c *gin.Context) {
-    idParam := c.Param("id")
-    id, err := strconv.Atoi(idParam)
-    if err != nil {
-        c.JSON(http.StatusBadRequest, gin.H{"error":"IDの形式が正しくありません"})
+func (h *Handler) DeletePost(c *gin.Context) {
+    id, valid := h.getIDParam(c)
+    if !valid {
         return
     }
 
-    if err := service.DeletePost(uint(id)); err != nil {
-        c.JSON(http.StatusInternalServerError, gin.H{"error":err.Error()})
+    if err := h.service.DeletePost(id); err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "ポストの削除に失敗しました: " + err.Error()})
         return
     }
-    c.JSON(http.StatusOK, gin.H{"message":"ポストが削除されました"})
+    c.JSON(http.StatusOK, gin.H{"message": "ポストが削除されました"})
 }

@@ -6,42 +6,57 @@ import (
 	"gorm.io/gorm"
 )
 
-var posts []model.Post
-var db *gorm.DB
+type Repository struct {
+	db *gorm.DB
+}
 
-func GetAllPosts() ([]model.Post, error) {
+func NewRepository(db *gorm.DB) *Repository {
+	return &Repository{db: db}
+}
+
+func (r *Repository) GetAllPosts() ([]model.Post, error) {
+	var posts []model.Post
+	if err := r.db.Find(&posts).Error; err != nil {
+		return nil, err
+	}
 	return posts, nil
 }
 
-func CreatePost(post model.Post) (model.Post, error) {
-	post.ID = uint(len(posts) + 1)
-	posts = append(posts, post)
+func (r *Repository) CreatePost(post model.Post) (model.Post, error) {
+	if err := r.db.Create(&post).Error; err != nil {
+		return model.Post{}, err
+	}
 	return post, nil
 }
 
-func GetPostById(id uint) (model.Post, error) {
-	for _, post := range posts {
-		if post.ID == id {
-			return post, nil
-		}
-	}
-	return model.Post{}, errors.New("ポストが見つかりません")
-}
-
-func UpdatePost(id uint, updatedData model.Post) (model.Post, error) {
+func (r *Repository) GetPostById(id uint) (model.Post, error) {
 	var post model.Post
-	if err := db.First(&post, id).Error; err != nil {
-		return model.Post{}, err
-	}
-
-	if err := db.Model(&post).Updates(updatedData).Error; err != nil {
+	if err := r.db.First(&post, id).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return model.Post{}, errors.New("ポストが見つかりません")
+		}
 		return model.Post{}, err
 	}
 	return post, nil
 }
 
-func DeletePost(id uint) error {
-	if err := db.Delete(&model.Post{}, id).Error; err != nil {
+func (r *Repository) UpdatePost(id uint, updatedData model.Post) (model.Post, error) {
+	var post model.Post
+	if err := r.db.First(&post, id).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return model.Post{}, errors.New("ポストが見つかりません")
+		}
+		return model.Post{}, err
+	}
+
+	if err := r.db.Model(&post).Updates(updatedData).Error; err != nil {
+		return model.Post{}, err
+	}
+	return post, nil
+}
+
+func (r *Repository) DeletePost(id uint) error {
+	if err := r.db.Delete(&model.Post{}, id).Error; err != nil {
 		return err
 	}
 	return nil

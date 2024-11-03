@@ -5,10 +5,10 @@ import (
     "blog-full/api"
 )
 
-func SetupRoutes(router *gin.Engine) {
-    router.GET("/posts", api.GetAllPosts)
-    router.POST("/posts", api.CreatePost)
-    router.GET("/posts/:id", api.GetPostById)
-    router.PATCH("/posts/:id", api.UpdatePost)
-    router.DELETE("/posts/:id", api.DeletePost)
+func SetupRoutes(router *gin.Engine, handler *api.Handler) {
+    router.GET("/posts", handler.GetAllPosts)
+    router.POST("/posts", handler.CreatePost)
+    router.GET("/posts/:id", handler.GetPostById)
+    router.PATCH("/posts/:id", handler.UpdatePost)
+    router.DELETE("/posts/:id", handler.DeletePost)
 }

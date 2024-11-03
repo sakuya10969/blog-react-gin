@@ -5,22 +5,30 @@ import (
 	"blog-full/repository"
 )
 
-func GetAllPosts() ([]model.Post, error) {
-	return repository.GetAllPosts()
+type Service struct {
+	repo *repository.Repository
 }
 
-func CreatePost(post model.Post) (model.Post, error) {
-	return repository.CreatePost(post)
+func NewService(repo *repository.Repository) *Service {
+	return &Service{repo: repo}
 }
 
-func GetPostById(id uint) (model.Post, error) {
-	return repository.GetPostById(id)
+func (s *Service) GetAllPosts() ([]model.Post, error) {
+	return s.repo.GetAllPosts()
 }
 
-func UpdatePost(id uint, updatedData model.Post) (model.Post, error) {
-	return repository.UpdatePost(id, updatedData)
+func (s *Service) CreatePost(post model.Post) (model.Post, error) {
+	return s.repo.CreatePost(post)
 }
 
-func DeletePost(id uint) error {
-	return repository.DeletePost(id)
+func (s *Service) GetPostById(id uint) (model.Post, error) {
+	return s.repo.GetPostById(id)
+}
+
+func (s *Service) UpdatePost(id uint, updatedData model.Post) (model.Post, error) {
+	return s.repo.UpdatePost(id, updatedData)
+}
+
+func (s *Service) DeletePost(id uint) error {
+	return s.repo.DeletePost(id)
 }
