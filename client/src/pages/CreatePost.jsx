@@ -5,7 +5,7 @@ import Header from '../components/common/Header';
 import PostForm from '../components/common/PostForm';
 
 
-const apiUrl = 'http://api:8080';
+const apiUrl = 'http://server:8080';
 function CreatePost() {
     const createPost = async (post) => {
         try {

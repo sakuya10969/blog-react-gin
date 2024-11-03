@@ -1,15 +1,15 @@
-package controllers
+package api
 
 import (
     "github.com/gin-gonic/gin"
-    "blog-full/models"
-    "blog-full/services"
+    "blog-full/model"
+    "blog-full/service"
     "net/http"
     "strconv"
 )
 
 func GetAllPosts(c *gin.Context) {
-    posts, err := services.GetAllPosts()
+    posts, err := service.GetAllPosts()
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error":
     "ポストの取得に失敗しました"})
@@ -19,13 +19,13 @@ func GetAllPosts(c *gin.Context) {
 }
 
 func CreatePost(c *gin.Context) {
-    var post models.Post
+    var post model.Post
     if err := c.ShouldBindJSON(&post); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
 
-    createdPost, err := services.CreatePost(post) 
+    createdPost, err := service.CreatePost(post) 
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error":"ポストの作成に失敗しました"})
         return
@@ -41,7 +41,7 @@ func GetPostById(c *gin.Context) {
         return
     }
 
-    post, err := services.GetPostById(uint(id))
+    post, err := service.GetPostById(uint(id))
     if err != nil {
         c.JSON(http.StatusNotFound, gin.H{"error":"ポストが見つかりません"})
         return

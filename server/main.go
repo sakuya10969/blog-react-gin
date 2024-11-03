@@ -3,7 +3,7 @@ package main
 import (
     "github.com/gin-gonic/gin"
     "blog-full/db"
-    "blog-full/routes"
+    "blog-full/router"
 )
 
 func main() {

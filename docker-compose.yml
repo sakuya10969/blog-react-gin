@@ -1,12 +1,14 @@
 # docker-compose.yml
 version: '3'
 services:
-  api:
-    build: ./api
+  server:
+    build: ./server
     ports:
       - "8080:8080"
     depends_on:
       - db
+    networks:
+      - app-network
       
   client:
     build: ./client
@@ -15,6 +17,10 @@ services:
     volumes:
       - ./client:/app
       - /app/node_modules
+    environment:
+      - REACT_API_URL=http://server:8080
+    networks:
+      - app-network
 
   db:
     image: postgres
@@ -24,3 +30,14 @@ services:
       POSTGRES_DB: blog_db
     ports:
       - "5432:5432"
+    volumes:
+    - db_data:/var/lib/postgresql/data
+    - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  db_data:
