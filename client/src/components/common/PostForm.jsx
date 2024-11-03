@@ -32,7 +32,7 @@ function PostForm({ onSubmit, initialData = {} }) {
                 required
             />
             <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
-                Submit
+                送信
             </Button>
         </Box>
     );

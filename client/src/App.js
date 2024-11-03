@@ -16,7 +16,7 @@ function App() {
                 <CssBaseline />
                 <Layout>
                     <Container maxWidth="md">
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<div>ロード中...</div>}>
                             <Routes>
                                 <Route path="/" element={<Home />} />
                                 <Route path="/posts/:id" element={<PostDetail />} />

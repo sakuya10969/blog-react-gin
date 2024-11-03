@@ -16,7 +16,7 @@ function PostCard({ id, title, summary }) {
             </CardContent>
             <CardActions>
                 <Button size="small" color="primary" component={Link} to={`/posts/${id}`}>
-                    Read More
+                    もっと読む...
                 </Button>
             </CardActions>
         </Card>

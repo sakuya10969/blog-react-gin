@@ -9,12 +9,12 @@ function Header() {
             <Toolbar>
                 <Typography variant="h6" sx={{ flexGrow: 1 }}>
                     <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
-                        My Blog App
+                        俺のブログ
                     </Link>
                 </Typography>
                 <Box>
                     <Button color="inherit" component={Link} to="/create" variant="outlined" sx={{ borderColor: 'white' }}>
-                        New Post
+                        新しいポストの作成
                     </Button>
                 </Box>
             </Toolbar>

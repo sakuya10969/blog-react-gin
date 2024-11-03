@@ -7,7 +7,7 @@ function Footer() {
         <Box component="footer" sx={{ py: 3, bgcolor: 'background.paper', mt: 'auto' }}>
             <Container maxWidth="md">
                 <Typography variant="body2" color="text.secondary" align="center">
-                    © {new Date().getFullYear()} My Blog. All rights reserved.
+                    © {new Date().getFullYear()} 俺のブログ. All rights reserved.
                 </Typography>
             </Container>
         </Box>

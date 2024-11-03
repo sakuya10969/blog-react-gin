@@ -7,9 +7,9 @@ import PostForm from '../components/common/PostForm';
 
 // 仮のデータ
 const postDetails = {
-    1: { title: 'First Post', content: 'This is the content of the first post.' },
-    2: { title: 'Second Post', content: 'This is the content of the second post.' },
-    3: { title: 'Third Post', content: 'This is the content of the third post.' }
+    1: { title: '最初のポスト', content: '最初のポストです' },
+    2: { title: '2つ目のポスト', content: '2つ目のポストです.' },
+    3: { title: '3つ目のポスト', content: '3つ目のポストです' }
 };
 
 function EditPost() {
@@ -25,12 +25,12 @@ function EditPost() {
     }, [id]);
 
     const handleUpdatePost = (updatedPost) => {
-        console.log("Post updated:", { id, ...updatedPost });
+        console.log("ポストの編集:", { id, ...updatedPost });
         // 更新処理をここで実行（API呼び出しなど）
     };
 
     if (!initialData) {
-        return <Typography variant="h6">Loading...</Typography>;
+        return <Typography variant="h6">ロード中...</Typography>;
     }
 
     return (
@@ -38,7 +38,7 @@ function EditPost() {
             <Header />
             <Container maxWidth="md">
                 <Typography variant="h4" component="h1" gutterBottom sx={{ mt: 4 }}>
-                    Edit Post
+                    ポストの編集
                 </Typography>
                 <PostForm onSubmit={handleUpdatePost} initialData={initialData} />
             </Container>

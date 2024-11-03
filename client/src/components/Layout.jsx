@@ -8,7 +8,7 @@ function Layout({ children }) {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div">
-                        My Blog
+                        俺のブログ
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -21,7 +21,7 @@ function Layout({ children }) {
                 <Container maxWidth="md">
                     <Typography variant="body2" color="text.secondary" align="center">
                         {'© '}
-                        My Blog App {new Date().getFullYear()}
+                        俺のブログ {new Date().getFullYear()}
                     </Typography>
                 </Container>
             </Box>

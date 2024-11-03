@@ -6,9 +6,9 @@ import Header from '../components/common/Header';
 
 // 仮の投稿データ
 const postDetails = {
-    1: { title: 'First Post', content: 'This is the content of the first post.' },
-    2: { title: 'Second Post', content: 'This is the content of the second post.' },
-    3: { title: 'Third Post', content: 'This is the content of the third post.' }
+    1: { title: '最初のポスト', content: '最初のポストです' },
+    2: { title: '2つ目のポスト', content: '2つ目のポストです.' },
+    3: { title: '3つ目のポスト', content: '3つ目のポストです' }
 };
 
 function PostDetail() {
@@ -33,7 +33,7 @@ function PostDetail() {
                 <Typography variant="h4" gutterBottom>
                     {post.title}
                 </Typography>
-                <Typography variant="body1" paragraph>
+                <Typography variant="body1" sx={{ marginBottom: 2 }}>
                     {post.content}
                 </Typography>
                 <Button
@@ -43,7 +43,7 @@ function PostDetail() {
                     color="primary"
                     sx={{ mt: 2 }}
                 >
-                    Edit Post
+                    ポストの編集
                 </Button>
             </Container>
         </>

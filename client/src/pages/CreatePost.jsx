@@ -6,7 +6,7 @@ import PostForm from '../components/common/PostForm';
 
 function CreatePost() {
     const handleCreatePost = (post) => {
-        console.log("New post created:", post);
+        console.log("新しいポストの作成", post);
         // APIでのデータ送信などをここで実行
     };
 
@@ -15,7 +15,7 @@ function CreatePost() {
             <Header />
             <Container maxWidth="md">
                 <Typography variant="h4" component="h1" gutterBottom sx={{ mt: 4 }}>
-                    Create New Post
+                    新しいポストの作成
                 </Typography>
                 <PostForm onSubmit={handleCreatePost} />
             </Container>
