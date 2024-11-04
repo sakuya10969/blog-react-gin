@@ -6,15 +6,15 @@ import (
 	"gorm.io/gorm"
 )
 
-type Repository struct {
+type PostRepository struct {
 	db *gorm.DB
 }
 
-func NewRepository(db *gorm.DB) *Repository {
-	return &Repository{db: db}
+func NewRepository(db *gorm.DB) *PostRepository {
+	return &PostRepository{db: db}
 }
 
-func (r *Repository) GetAllPosts() ([]model.Post, error) {
+func (r *PostRepository) GetAllPosts() ([]model.Post, error) {
 	var posts []model.Post
 	if err := r.db.Find(&posts).Error; err != nil {
 		return nil, err
@@ -22,14 +22,14 @@ func (r *Repository) GetAllPosts() ([]model.Post, error) {
 	return posts, nil
 }
 
-func (r *Repository) CreatePost(post model.Post) (model.Post, error) {
+func (r *PostRepository) CreatePost(post model.Post) (model.Post, error) {
 	if err := r.db.Create(&post).Error; err != nil {
 		return model.Post{}, err
 	}
 	return post, nil
 }
 
-func (r *Repository) GetPostById(id uint) (model.Post, error) {
+func (r *PostRepository) GetPostById(id uint) (model.Post, error) {
 	var post model.Post
 	if err := r.db.First(&post, id).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -40,7 +40,7 @@ func (r *Repository) GetPostById(id uint) (model.Post, error) {
 	return post, nil
 }
 
-func (r *Repository) UpdatePost(id uint, updatedData model.Post) (model.Post, error) {
+func (r *PostRepository) UpdatePost(id uint, updatedData model.Post) (model.Post, error) {
 	var post model.Post
 	if err := r.db.First(&post, id).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -55,7 +55,7 @@ func (r *Repository) UpdatePost(id uint, updatedData model.Post) (model.Post, er
 	return post, nil
 }
 
-func (r *Repository) DeletePost(id uint) error {
+func (r *PostRepository) DeletePost(id uint) error {
 	if err := r.db.Delete(&model.Post{}, id).Error; err != nil {
 		return err
 	}

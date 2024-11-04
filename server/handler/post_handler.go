@@ -1,4 +1,4 @@
-package api
+package handler
 
 import (
     "github.com/gin-gonic/gin"
@@ -10,10 +10,10 @@ import (
 )
 
 type Handler struct {
-    service *service.Service
+    service *service.PostService
 }
 
-func NewHandler(service *service.Service) *Handler {
+func NewHandler(service *service.PostService) *Handler {
     return &Handler{service: service}
 }
 

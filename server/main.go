@@ -4,7 +4,7 @@ import (
 	"log"
 	"github.com/gin-gonic/gin"
 	"blog-full/db"
-	"blog-full/api"
+	"blog-full/handler"
 	"blog-full/repository"
 	"blog-full/router"
 	"blog-full/service"
@@ -16,7 +16,7 @@ func main() {
 
 	repo := repository.NewRepository(database)
 	svc := service.NewService(repo)
-	handler := api.NewHandler(svc)
+	handler := handler.NewHandler(svc)
 
 	r := gin.Default()
 

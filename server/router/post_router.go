@@ -2,10 +2,10 @@ package router
 
 import (
     "github.com/gin-gonic/gin"
-    "blog-full/api"
+    "blog-full/handler"
 )
 
-func SetupRoutes(router *gin.Engine, handler *api.Handler) {
+func SetupRoutes(router *gin.Engine, handler *handler.Handler) {
     router.GET("/posts", handler.GetAllPosts)
     router.POST("/posts", handler.CreatePost)
     router.GET("/posts/:id", handler.GetPostById)
