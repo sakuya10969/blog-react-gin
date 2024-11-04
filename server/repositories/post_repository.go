@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"blog-full/model"
+	"server/models"
 	"errors"
 	"gorm.io/gorm"
 )

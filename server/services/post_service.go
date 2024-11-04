@@ -1,8 +1,8 @@
 package service
 
 import (
-	"blog-full/model"
-	"blog-full/repository"
+	"server/models"
+	"server/repositories"
 )
 
 type PostService struct {

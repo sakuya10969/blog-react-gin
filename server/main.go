@@ -3,11 +3,11 @@ package main
 import (
 	"log"
 	"github.com/gin-gonic/gin"
-	"blog-full/db"
-	"blog-full/handler"
-	"blog-full/repository"
-	"blog-full/router"
-	"blog-full/service"
+	"server/db"
+	"server/handlers"
+	"server/repositories"
+	"server/routers"
+	"server/services"
 )
 
 func main() {

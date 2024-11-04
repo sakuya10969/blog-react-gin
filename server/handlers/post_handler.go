@@ -2,8 +2,8 @@ package handler
 
 import (
     "github.com/gin-gonic/gin"
-    "blog-full/model"
-    "blog-full/service"
+    "server/models"
+    "server/services"
     "gorm.io/gorm"
     "net/http"
     "strconv"
