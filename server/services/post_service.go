@@ -1,4 +1,4 @@
-package service
+package services
 
 import (
 	"server/models"
@@ -6,26 +6,26 @@ import (
 )
 
 type PostService struct {
-	repo *repository.PostRepository
+	repo *repositories.PostRepository
 }
 
-func NewService(repo *repository.PostRepository) *PostService {
+func NewService(repo *repositories.PostRepository) *PostService {
 	return &PostService{repo: repo}
 }
 
-func (s *PostService) GetAllPosts() ([]model.Post, error) {
+func (s *PostService) GetAllPosts() ([]models.Post, error) {
 	return s.repo.GetAllPosts()
 }
 
-func (s *PostService) CreatePost(post model.Post) (model.Post, error) {
+func (s *PostService) CreatePost(post models.Post) (models.Post, error) {
 	return s.repo.CreatePost(post)
 }
 
-func (s *PostService) GetPostById(id uint) (model.Post, error) {
+func (s *PostService) GetPostById(id uint) (models.Post, error) {
 	return s.repo.GetPostById(id)
 }
 
-func (s *PostService) UpdatePost(id uint, updatedData model.Post) (model.Post, error) {
+func (s *PostService) UpdatePost(id uint, updatedData models.Post) (models.Post, error) {
 	return s.repo.UpdatePost(id, updatedData)
 }
 

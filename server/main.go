@@ -14,13 +14,13 @@ func main() {
 	db.Init()
 	database := db.GetDB()
 
-	repo := repository.NewRepository(database)
-	svc := service.NewService(repo)
-	handler := handler.NewHandler(svc)
+	repo := repositories.NewRepository(database)
+	svc := services.NewService(repo)
+	postHandler := handlers.NewHandler(svc)
 
 	r := gin.Default()
 
-	router.SetupRoutes(r, handler)
+	router.SetupRoutes(r, postHandler)
 
 	if err := r.Run(":8080"); err != nil {
 		log.Fatal("failed to start server:", err)

@@ -5,7 +5,7 @@ import (
     "server/handlers"
 )
 
-func SetupRoutes(router *gin.Engine, handler *handler.Handler) {
+func SetupRoutes(router *gin.Engine, handler *handlers.PostHandler) {
     router.GET("/posts", handler.GetAllPosts)
     router.POST("/posts", handler.CreatePost)
     router.GET("/posts/:id", handler.GetPostById)

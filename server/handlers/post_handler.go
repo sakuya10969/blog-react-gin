@@ -1,4 +1,4 @@
-package handler
+package handlers
 
 import (
     "github.com/gin-gonic/gin"
@@ -9,15 +9,15 @@ import (
     "strconv"
 )
 
-type Handler struct {
-    service *service.PostService
+type PostHandler struct {
+    service *services.PostService
 }
 
-func NewHandler(service *service.PostService) *Handler {
-    return &Handler{service: service}
+func NewHandler(service *services.PostService) *PostHandler {
+    return &PostHandler{service: service}
 }
 
-func (h *Handler) getIDParam(c *gin.Context) (uint, bool) {
+func (h *PostHandler) getIDParam(c *gin.Context) (uint, bool) {
     idParam := c.Param("id")
     id, err := strconv.Atoi(idParam)
     if err != nil {
@@ -27,7 +27,7 @@ func (h *Handler) getIDParam(c *gin.Context) (uint, bool) {
     return uint(id), true
 }
 
-func (h *Handler) GetAllPosts(c *gin.Context) {
+func (h *PostHandler) GetAllPosts(c *gin.Context) {
     posts, err := h.service.GetAllPosts()
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "ポストの取得に失敗しました"})
@@ -36,8 +36,8 @@ func (h *Handler) GetAllPosts(c *gin.Context) {
     c.JSON(http.StatusOK, posts)
 }
 
-func (h *Handler) CreatePost(c *gin.Context) {
-    var post model.Post
+func (h *PostHandler) CreatePost(c *gin.Context) {
+    var post models.Post
     if err := c.ShouldBindJSON(&post); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": "リクエストデータの形式が正しくありません: " + err.Error()})
         return
@@ -51,7 +51,7 @@ func (h *Handler) CreatePost(c *gin.Context) {
     c.JSON(http.StatusCreated, createdPost)
 }
 
-func (h *Handler) GetPostById(c *gin.Context) {
+func (h *PostHandler) GetPostById(c *gin.Context) {
     id, valid := h.getIDParam(c)
     if !valid {
         return
@@ -69,13 +69,13 @@ func (h *Handler) GetPostById(c *gin.Context) {
     c.JSON(http.StatusOK, post)
 }
 
-func (h *Handler) UpdatePost(c *gin.Context) {
+func (h *PostHandler) UpdatePost(c *gin.Context) {
     id, valid := h.getIDParam(c)
     if !valid {
         return
     }
 
-    var updatedData model.Post
+    var updatedData models.Post
     if err := c.ShouldBindJSON(&updatedData); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": "リクエストデータの形式が正しくありません: " + err.Error()})
         return
@@ -89,7 +89,7 @@ func (h *Handler) UpdatePost(c *gin.Context) {
     c.JSON(http.StatusOK, updatedPost)
 }
 
-func (h *Handler) DeletePost(c *gin.Context) {
+func (h *PostHandler) DeletePost(c *gin.Context) {
     id, valid := h.getIDParam(c)
     if !valid {
         return
