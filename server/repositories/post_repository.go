@@ -40,7 +40,7 @@ func (r *PostRepository) GetPostById(id uint) (models.Post, error) {
 	return post, nil
 }
 
-func (r *PostRepository) UpdatePost(id uint, updatedData models.Post) (models.Post, error) {
+func (r *PostRepository) UpdatePost(id uint, updatedPost models.Post) (models.Post, error) {
 	var post models.Post
 	if err := r.db.First(&post, id).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -49,7 +49,7 @@ func (r *PostRepository) UpdatePost(id uint, updatedData models.Post) (models.Po
 		return models.Post{}, err
 	}
 
-	if err := r.db.Model(&post).Updates(updatedData).Error; err != nil {
+	if err := r.db.Model(&post).Updates(updatedPost).Error; err != nil {
 		return models.Post{}, err
 	}
 	return post, nil

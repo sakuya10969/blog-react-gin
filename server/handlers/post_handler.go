@@ -75,13 +75,13 @@ func (h *PostHandler) UpdatePost(c *gin.Context) {
         return
     }
 
-    var updatedData models.Post
-    if err := c.ShouldBindJSON(&updatedData); err != nil {
+    var updatedPost models.Post
+    if err := c.ShouldBindJSON(&updatedPost); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": "リクエストデータの形式が正しくありません: " + err.Error()})
         return
     }
 
-    updatedPost, err := h.service.UpdatePost(id, updatedData)
+    updatedPost, err := h.service.UpdatePost(id, updatedPost)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "ポストの更新に失敗しました: " + err.Error()})
         return

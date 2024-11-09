@@ -4,6 +4,7 @@ import (
     "gorm.io/driver/postgres"
     "gorm.io/gorm"
     "log"
+    "server/models"
 )
 
 var DB *gorm.DB
@@ -15,6 +16,10 @@ func Init() {
     DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
     if err != nil {
         log.Fatal("Failed to connect to database:", err)
+    }
+
+    if err := DB.AutoMigrate(&models.Post{}); err != nil {
+        log.Fatal("Failed to migrate database:", err)
     }
 }
 
