@@ -12,11 +12,6 @@ export const Header = () => {
                         俺のブログ
                     </Link>
                 </Typography>
-                <Box>
-                    <Button color="inherit" component={Link} to="/post/create" variant="outlined" sx={{ borderColor: 'white' }}>
-                        新しいポストの作成
-                    </Button>
-                </Box>
             </Toolbar>
         </AppBar>
     );

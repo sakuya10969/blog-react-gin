@@ -20,7 +20,7 @@ func main() {
 
 	r := gin.Default()
 
-	router.SetupRoutes(r, postHandler)
+	routers.SetupRoutes(r, postHandler)
 
 	if err := r.Run(":8080"); err != nil {
 		log.Fatal("failed to start server:", err)
