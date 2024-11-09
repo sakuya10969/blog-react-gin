@@ -7,7 +7,8 @@ import Layout from './components/Layout';
 const Home = lazy(() => import('./pages/Home'));
 const PostDetail = lazy(() => import('./pages/PostDetail'));
 const CreatePost = lazy(() => import('./pages/CreatePost'));
-const EditPost = lazy(() => import('./pages/EditPost'));
+const UpdatePost = lazy(() => import('./pages/UpdatePost'));
+// const PostList = lazy(() => import('./pages/PostList'));
 
 function App() {
     return (
@@ -19,9 +20,9 @@ function App() {
                         <Suspense fallback={<div>ロード中...</div>}>
                             <Routes>
                                 <Route path="/" element={<Home />} />
-                                <Route path="/posts/:id" element={<PostDetail />} />
-                                <Route path="/create" element={<CreatePost />} />
-                                <Route path="/edit/:id" element={<EditPost />} />
+                                <Route path="/post/:id" element={<PostDetail />} />
+                                <Route path="/post/create" element={<CreatePost />} />
+                                <Route path="/post/update/:id" element={<UpdatePost />} />
                             </Routes>
                         </Suspense>
                     </Container>

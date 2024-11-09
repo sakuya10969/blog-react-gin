@@ -14,7 +14,7 @@ function PostForm({ onSubmit, initialData = {} }) {
     return (
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <TextField
-                label="Title"
+                label="タイトル"
                 fullWidth
                 margin="normal"
                 value={title}
@@ -22,7 +22,7 @@ function PostForm({ onSubmit, initialData = {} }) {
                 required
             />
             <TextField
-                label="Content"
+                label="内容"
                 fullWidth
                 multiline
                 rows={4}
@@ -31,9 +31,6 @@ function PostForm({ onSubmit, initialData = {} }) {
                 onChange={(e) => setContent(e.target.value)}
                 required
             />
-            <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
-                送信
-            </Button>
         </Box>
     );
 }

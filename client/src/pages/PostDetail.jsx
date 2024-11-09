@@ -1,51 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Typography, Button, Container } from '@mui/material';
-import Header from '../components/common/Header';
+import { Typography, Container } from '@mui/material';
+import Button from '../components/common/Button';
+import fetchPost from './services/fetchPost';
 
-const postDetails = {
-    1: { title: '最初のポスト', content: '最初のポストです' },
-    2: { title: '2つ目のポスト', content: '2つ目のポストです.' },
-    3: { title: '3つ目のポスト', content: '3つ目のポストです' }
-};
-
-function PostDetail() {
+export const PostDetails = () => {
     const { id } = useParams();
-    const post = postDetails[id];
+    const [post, setPost] = useState(null);
+
+    useEffect(() => {
+        const getPost = async () => {
+            const { post } = await fetchPost(id);
+            setPost(post);
+        };
+        getPost();
+    }, [id]);
 
     if (!post) {
-        return (
-            <Container maxWidth="md">
-                <Header />
-                <Typography variant="h6" color="error" sx={{ mt: 4 }}>
-                    Post not found
-                </Typography>
-            </Container>
-        );
+        return <Typography variant="h6">ポストが見つかりません。</Typography>;
     }
 
     return (
-        <>
-            <Header />
-            <Container maxWidth="md" sx={{ mt: 4 }}>
-                <Typography variant="h4" gutterBottom>
-                    {post.title}
-                </Typography>
-                <Typography variant="body1" sx={{ marginBottom: 2 }}>
-                    {post.content}
-                </Typography>
-                <Button
-                    component={Link}
-                    to={`/edit/${id}`}
-                    variant="contained"
-                    color="primary"
-                    sx={{ mt: 2 }}
-                >
+        <Container maxWidth="md">
+            <Typography variant="h4" component="h1" gutterBottom>
+                {post.title}
+            </Typography>
+            <Typography variant="body1">{post.content}</Typography>
+            <Box display="flex" gap={2} mt={2}>
+                <Button component={Link} to={`post/update/${id}`} variant="contained" color="primary">
                     ポストの編集
                 </Button>
-            </Container>
-        </>
+                <Button component={Link} to={`post/delete/${id}`} variant="contained" color="error">
+                    ポストの削除
+                </Button>
+            </Box>
+        </Container>
     );
-}
-
-export default PostDetail;
+};

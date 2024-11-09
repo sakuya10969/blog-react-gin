@@ -1,15 +1,45 @@
-import React from 'react';
-import { Typography, Container } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Typography, Container, Pagination, Box } from '@mui/material';
 import PostCard from '../components/common/PostCard';
 import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
+import axios from 'axios';
 
-const posts = [
-    { id: 1, title: '最初のポスト', summary: '最初のポストです' },
-    { id: 2, title: '2つ目のポスト', summary: '2つ目のポストです' },
-    { id: 3, title: '3つ目のポスト', summary: '3つ目のポストです' }
-];
+const apiUrl = 'http://server:8080';
 
-function Home() {
+export const Home = () => {
+    const [posts, setPosts] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPosts, setTotalPosts] = useState(0);
+    const postsPerPage = 10;
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get(`${apiUrl}`, {
+                    params: {
+                        _page: page,
+                        _limit: postsPerPage,
+                    },
+                });
+                
+                setPosts(response.data);
+                
+                const totalCount = response.headers['x-total-count'];
+                if (totalCount) {
+                    setTotalPosts(parseInt(totalCount, 10));
+                }
+            } catch (error) {
+                console.log("ポストの取得に失敗しました:", error);
+            }
+        };
+        fetchPosts();
+    }, [page]);
+
+    const handlePageChange = (event, value) => {
+        setPage(value);
+    };
+
     return (
         <>
             <Header />
@@ -18,11 +48,18 @@ function Home() {
                     ブログの投稿
                 </Typography>
                 {posts.map((post) => (
-                    <PostCard key={post.id} id={post.id} title={post.title} summary={post.summary} />
+                    <PostCard key={post.id} id={post.id} title={post.title} content={post.content} />
                 ))}
+                <Box display="flex" justifyContent="center" sx={{ mt: 4 }}>
+                    <Pagination
+                        count={Math.ceil(totalPosts / postsPerPage)}
+                        page={page}
+                        onChange={handlePageChange}
+                        color="primary"
+                    />
+                </Box>
             </Container>
+            <Footer />
         </>
     );
 }
-
-export default Home;

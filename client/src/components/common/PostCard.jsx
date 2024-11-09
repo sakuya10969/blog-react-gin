@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardActions, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-function PostCard({ id, title, summary }) {
+function PostCard({ id, title, content }) {
     return (
         <Card sx={{ mb: 2 }}>
             <CardContent>
@@ -11,11 +11,11 @@ function PostCard({ id, title, summary }) {
                     {title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {summary}
+                    {content}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" color="primary" component={Link} to={`/posts/${id}`}>
+                <Button size="medium" color="primary" component={Link} to={`/post/${id}`}>
                     もっと読む...
                 </Button>
             </CardActions>
