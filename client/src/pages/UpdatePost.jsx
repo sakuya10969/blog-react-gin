@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Typography, Container} from '@mui/material';
-import Header from '../components/common/Header';
-import PostForm from '../components/common/PostForm';
-import Button from '../components/common/Button';
-import fetchPost from './services/fetchPost';
-import { updatePost } from '../services/PostService';
+import { Button, Typography, Container} from '@mui/material';
+import { Header } from '../components/common/Header';
+import { PostForm } from '../components/common/PostForm';
+import { fetchPost, updatePost } from '../services/PostService';
 
-const apiUrl = 'http://server:8080';
-
-export const UpdatePost = () => {
+const UpdatePost = () => {
     const { id } = useParams();
     const [initialData, setInitialData] = useState(null);
     const navigate = useNavigate();
@@ -45,10 +41,10 @@ export const UpdatePost = () => {
                 <Typography variant="h4" component="h1" gutterBottom sx={{ mt: 4 }}>
                     ポストの編集
                 </Typography>
-                <PostForm initialData={initialData}>
-                    <Button onClick={handleUpdatePost(id, initialData)}>更新</Button>
-                </PostForm>
+                <PostForm onSubmit={handleUpdatePost} initialData={initialData} buttonText="更新" />
             </Container>
         </>
     );
 }
+
+export default UpdatePost;

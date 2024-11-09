@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Typography, Box, Stack, CircularProgress, Alert } from '@mui/material';
-import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
-import PostCard from '../components/common/PostCard';
+import { Header } from '../components/common/Header';
+import { Footer } from '../components/common/Footer';
+import { PostCard } from '../components/common/PostCard';
 
-export const PostsList = () => {
+const PostsList = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -62,3 +62,5 @@ export const PostsList = () => {
         </>
     );
 };
+
+export default PostsList;

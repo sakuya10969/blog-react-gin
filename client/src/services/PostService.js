@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
 
 const apiUrl = 'http://server:8080';
 

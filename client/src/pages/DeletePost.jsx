@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Typography, Container} from '@mui/material';
-import Header from '../components/common/Header';
-import fetchPost from './services/fetchPost';
-import Button from '../components/common/Button';
+import { Button,Typography, Container} from '@mui/material';
+import { Header } from '../components/common/Header';
+import { fetchPost } from './services/fetchPost';
 import { deletePost } from '../services/PostService';
 
-export const DeletePost = () => {
+const DeletePost = () => {
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -52,10 +51,12 @@ export const DeletePost = () => {
                     {postDetails.title}
                 </Typography>
                 <Box sx={{ display: 'flex', gap: 2, mt: 4 }}>
-                    <Button color="error" onClick={handleDeletePost}>削除</Button>
-                    <Button onClick={() => navigate(-1)}>キャンセル</Button>
+                    <Button variant="contained" color="error" onClick={handleDeletePost}>削除</Button>
+                    <Button onClick={() => navigate(-1)}>戻る</Button>
                 </Box>
             </Container>
         </>
     );
 }
+
+export default DeletePost;

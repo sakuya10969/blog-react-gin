@@ -2,7 +2,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Box, Container } from '@mui/material';
 
-function Layout({ children }) {
+export const Layout = ({ children }) => {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <AppBar position="static">
@@ -28,5 +28,3 @@ function Layout({ children }) {
         </Box>
     );
 }
-
-export default Layout;

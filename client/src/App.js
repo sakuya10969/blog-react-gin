@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Container, CssBaseline } from '@mui/material';
 import ErrorBoundary from './components/ErrorBoundary';
-import Layout from './components/Layout';
+import { Layout } from './components/Layout';
 
 const Home = lazy(() => import('./pages/Home'));
 const PostDetail = lazy(() => import('./pages/PostDetail'));
@@ -10,7 +10,7 @@ const CreatePost = lazy(() => import('./pages/CreatePost'));
 const UpdatePost = lazy(() => import('./pages/UpdatePost'));
 // const PostList = lazy(() => import('./pages/PostList'));
 
-function App() {
+const App = () => {
     return (
         <ErrorBoundary>
             <Router>

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
 
-function PostForm({ onSubmit, initialData = {} }) {
+export const PostForm = ({ onSubmit, initialData = {}, buttonText }) => {
     const [title, setTitle] = useState(initialData.title || '');
     const [content, setContent] = useState(initialData.content || '');
 
@@ -31,8 +31,9 @@ function PostForm({ onSubmit, initialData = {} }) {
                 onChange={(e) => setContent(e.target.value)}
                 required
             />
+            <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+                {buttonText}
+            </Button>
         </Box>
     );
 }
-
-export default PostForm;

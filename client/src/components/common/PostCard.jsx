@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardActions, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-function PostCard({ id, title, content }) {
+export const PostCard = ({ id, title, content }) => {
     return (
         <Card sx={{ mb: 2 }}>
             <CardContent>
@@ -22,5 +22,3 @@ function PostCard({ id, title, content }) {
         </Card>
     );
 }
-
-export default PostCard;

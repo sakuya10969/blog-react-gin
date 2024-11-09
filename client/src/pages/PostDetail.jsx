@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Typography, Container } from '@mui/material';
-import Button from '../components/common/Button';
-import fetchPost from './services/fetchPost';
+import { Button, Typography, Container, Box } from '@mui/material';
+import { fetchPost } from '../services/PostService';
 
-export const PostDetails = () => {
+const PostDetails = () => {
     const { id } = useParams();
     const [post, setPost] = useState(null);
 
@@ -37,3 +36,5 @@ export const PostDetails = () => {
         </Container>
     );
 };
+
+export default PostDetails;

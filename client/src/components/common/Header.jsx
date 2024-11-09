@@ -3,7 +3,7 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-function Header() {
+export const Header = () => {
     return (
         <AppBar position="static">
             <Toolbar>
@@ -21,5 +21,3 @@ function Header() {
         </AppBar>
     );
 }
-
-export default Header;

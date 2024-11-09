@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Container, Pagination, Box } from '@mui/material';
-import PostCard from '../components/common/PostCard';
-import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
+import { PostCard } from '../components/common/PostCard';
+import { Header } from '../components/common/Header';
+import { Footer } from '../components/common/Footer';
 import axios from 'axios';
 
 const apiUrl = 'http://server:8080';
 
-export const Home = () => {
+const Home = () => {
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPosts, setTotalPosts] = useState(0);
@@ -63,3 +63,5 @@ export const Home = () => {
         </>
     );
 }
+
+export default Home;
