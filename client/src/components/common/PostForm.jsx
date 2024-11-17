@@ -1,10 +1,9 @@
-// src/components/common/PostForm.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box } from '@mui/material';
 
-export const PostForm = ({ onSubmit, initialData = {}, buttonText }) => {
-    const [title, setTitle] = useState(initialData.title || '');
-    const [content, setContent] = useState(initialData.content || '');
+export const PostForm = ({ onSubmit, data = {title: '', content: ''}, buttonText }) => {
+    const [title, setTitle] = useState(data.title || '');
+    const [content, setContent] = useState(data.content || '');
 
     const handleSubmit = (e) => {
         e.preventDefault();

@@ -1,4 +1,3 @@
-// components/Layout.js
 import React from 'react';
 import { AppBar, Toolbar, Typography, Box, Container } from '@mui/material';
 

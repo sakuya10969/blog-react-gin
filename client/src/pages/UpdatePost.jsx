@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Button, Typography, Container} from '@mui/material';
-import { Header } from '../components/common/Header';
+import { Button, Typography, Container, Card, CardContent, Box} from '@mui/material';
 import { PostForm } from '../components/common/PostForm';
 import { fetchPost, updatePost } from '../services/PostService';
 
 const UpdatePost = () => {
     const { id } = useParams();
-    const [initialData, setInitialData] = useState(null);
+    const [data, setData] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         const getPost = async () => {
-            const data = await fetchPost(id);
-            if (data) {
-                setInitialData(data);
+            const post = await fetchPost(id);
+            if (post) {
+                setData(post);
             }
         };
         getPost();
     }, [id]);
 
-    if (!initialData) {
+    if (!data) {
         return <Typography variant="h6">ロード中...</Typography>;
     }
 
@@ -35,15 +34,25 @@ const UpdatePost = () => {
 };
 
     return (
-        <>
-            <Header />
-            <Container maxWidth="md">
-                <Typography variant="h4" component="h1" gutterBottom sx={{ mt: 4 }}>
-                    ポストの編集
-                </Typography>
-                <PostForm onSubmit={handleUpdatePost} initialData={initialData} buttonText="更新" />
-            </Container>
-        </>
+        <Container maxWidth="sm" sx={{ mt: 6 }}>
+            <Card elevation={3} sx={{ p: 2 }}>
+                <CardContent>
+                    <Typography variant="h5" component="h2" gutterBottom>
+                        ポストの編集
+                    </Typography>
+                    <PostForm onSubmit={handleUpdatePost} data={data} buttonText="更新" />
+                    <Box sx={{ mt: 2, textAlign: 'left' }}>
+                        <Button 
+                            variant="outlined" 
+                            color="secondary" 
+                            onClick={() => navigate(-1)}
+                        >
+                            戻る
+                        </Button>
+                    </Box>
+                </CardContent>
+            </Card>
+        </Container>
     );
 }
 

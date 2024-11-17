@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Typography, Box, Stack, CircularProgress, Alert } from '@mui/material';
-import { Header } from '../components/common/Header';
-import { Footer } from '../components/common/Footer';
 import { PostCard } from '../components/common/PostCard';
 
 const PostsList = () => {
@@ -30,36 +28,32 @@ const PostsList = () => {
     }, []);
 
     return (
-        <>
-            <Header />
-            <Box sx={{ padding: 4 }}>
-                <Typography variant="h4" gutterBottom>
-                    投稿一覧
-                </Typography>
+        <Box sx={{ padding: 4 }}>
+            <Typography variant="h4" gutterBottom>
+                投稿一覧
+            </Typography>
 
-                {loading && <CircularProgress />}
-                {error && <Alert severity="error">{error}</Alert>}
+            {loading && <CircularProgress />}
+            {error && <Alert severity="error">{error}</Alert>}
 
-                <Stack direction="row" flexWrap="wrap" spacing={2}>
-                    {posts.map((post) => (
-                        <Box
-                            key={post.id}
-                            sx={{
-                                width: {
-                                    xs: "100%",
-                                    sm: "50%",
-                                    md: "33.33%", 
-                                },
-                                padding: 1,
-                            }}
-                        >
-                            <PostCard post={post} />
-                        </Box>
-                    ))}
-                </Stack>
-            </Box>
-            <Footer />
-        </>
+            <Stack direction="row" flexWrap="wrap" spacing={2}>
+                {posts.map((post) => (
+                    <Box
+                        key={post.id}
+                        sx={{
+                            width: {
+                                xs: "100%",
+                                sm: "50%",
+                                md: "33.33%", 
+                            },
+                            padding: 1,
+                        }}
+                    >
+                        <PostCard post={post} />
+                    </Box>
+                ))}
+            </Stack>
+        </Box>
     );
 };
 

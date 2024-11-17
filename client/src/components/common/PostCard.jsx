@@ -1,4 +1,3 @@
-// src/components/common/PostCard.js
 import React from 'react';
 import { Card, CardContent, CardActions, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
