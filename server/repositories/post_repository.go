@@ -4,6 +4,7 @@ import (
 	"server/models"
 	"errors"
 	"gorm.io/gorm"
+	"log"
 )
 
 type PostRepository struct {
@@ -24,6 +25,7 @@ func (r *PostRepository) GetAllPosts() ([]models.Post, error) {
 
 func (r *PostRepository) CreatePost(post models.Post) (models.Post, error) {
 	if err := r.db.Create(&post).Error; err != nil {
+		log.Println(err)
 		return models.Post{}, err
 	}
 	return post, nil

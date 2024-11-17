@@ -7,6 +7,7 @@ import (
     "gorm.io/gorm"
     "net/http"
     "strconv"
+    "log"
 )
 
 type PostHandler struct {
@@ -39,12 +40,14 @@ func (h *PostHandler) GetAllPosts(c *gin.Context) {
 func (h *PostHandler) CreatePost(c *gin.Context) {
     var post models.Post
     if err := c.ShouldBindJSON(&post); err != nil {
-        c.JSON(http.StatusBadRequest, gin.H{"error": "リクエストデータの形式が正しくありません: " + err.Error()})
+        log.Println(err)
+        c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
 
     createdPost, err := h.service.CreatePost(post)
     if err != nil {
+        log.Println(err)
         c.JSON(http.StatusInternalServerError, gin.H{"error": "ポストの作成に失敗しました"})
         return
     }

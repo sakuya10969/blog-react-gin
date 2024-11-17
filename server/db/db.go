@@ -1,7 +1,7 @@
 package db
 
 import (
-    "gorm.io/driver/postgres"
+    "gorm.io/driver/mysql"
     "gorm.io/gorm"
     "log"
     "server/models"
@@ -10,10 +10,10 @@ import (
 var DB *gorm.DB
 
 func Init() {
-    dsn := "host=db user=user password=password dbname=blog_db port=5432 sslmode=disable TimeZone=Asia/Tokyo"
+    dsn := "user:password@tcp(db:3306)/blog_db?charset=utf8mb4&parseTime=True&loc=Local"
     var err error
     
-    DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+    DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
     if err != nil {
         log.Fatal("Failed to connect to database:", err)
     }
@@ -24,5 +24,5 @@ func Init() {
 }
 
 func GetDB() *gorm.DB {
-	return DB
+    return DB
 }

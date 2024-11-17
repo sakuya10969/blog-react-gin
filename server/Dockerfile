@@ -17,7 +17,7 @@ RUN chmod +x /wait-for-it.sh
 RUN go build -o main .
 
 # コンテナが起動する際に実行されるコマンド
-CMD ["/wait-for-it.sh", "db:5432", "--", "./main"]
+CMD ["/wait-for-it.sh", "db:3306", "--", "./main"]
 
 # コンテナ内でGinがリッスンするポートを指定
 EXPOSE 8080

@@ -6,7 +6,7 @@ import (
 	"server/db"
 	"server/handlers"
 	"server/repositories"
-	"server/routers"
+	"server/routes"
 	"server/services"
 )
 
@@ -20,7 +20,7 @@ func main() {
 
 	r := gin.Default()
 
-	routers.SetupRoutes(r, postHandler)
+	routes.SetupRoutes(r, postHandler)
 
 	if err := r.Run(":8080"); err != nil {
 		log.Fatal("failed to start server:", err)
